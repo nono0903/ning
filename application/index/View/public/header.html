@@ -11,11 +11,11 @@
 				<ul id="tiny">
 					<li class="active"><a href="/">首页</a></li>
                     {foreach name="navigate" item="vo"}
-					<li><a href="{:url('/artlist',['id'=>$vo['category_id'],type=>$vo['type']])}">{$vo['category_name']}</a>
+					<li><a href="{:url('/artlist',['id'=>$vo['category_id'],'type'=>$vo['type']])}">{$vo['category_name']}</a>
                         <ul>
                         {foreach name="$vo['sons']" item="v"}
 
-                                <li><a href="{:url('/artlist',['id'=>$v['category_id'],type=>$v['type']])}">{$v['category_name']}</a>
+                                <li><a href="{:url('/artlist',['id'=>$v['category_id'],'type'=>$v['type']])}">{$v['category_name']}</a>
 
                         {/foreach}
                          </ul>
