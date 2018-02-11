@@ -1,0 +1,46 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 2018/2/5 0005
+ * Time: 9:35
+ */
+
+namespace app\index\controller;
+
+use think\Db;
+use think\Controller;
+
+class Base extends Controller
+{
+    public function __construct()
+    {
+
+        header("Cache-control: private");
+        parent::__construct();
+
+        $this->assign('navigate',navigate());
+        $this->assign('foo',footer());
+    }
+
+    public function initialize()
+    {
+
+
+
+        //todo 从此截断对边栏赋值
+
+
+
+//        $action  = request()->action();
+//        if(!in_array($action ,['login','logout'])) {
+//            if(session('admin_id') > 0 ){
+////                $this->check_priv();//检查管理员菜单操作权限
+//                return true;
+//            }else{
+//                $this->error('请先登陆',Url('/login'),1);
+//            }
+//        }
+
+    }
+}

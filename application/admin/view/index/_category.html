@@ -1,0 +1,87 @@
+{include file="public/layout" /}
+<body style="background-color: #FFF; overflow: auto;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+  <div class="fixed-bar">
+    <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+      <div class="subject">
+        <h3>商品分类 - 添加修改分类</h3>
+        <h5>添加或编辑商品分类</h5>
+      </div>
+    </div>
+  </div>
+  <div class="explanation" id="explanation">
+    <div class="title" id="checkZoom"><i class="fa fa-lightbulb-o"></i>
+      <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+      <span id="explanationZoom" title="收起提示"></span>
+    </div>
+    <ul>
+      <li>商品分类最多分为三级</li>
+      <li>添加或者修改分类时, 应注意选择对应的上级</li>
+    </ul>
+  </div>
+  <form action="{:Url('/addEditCategory')}" method="post" class="form-horizontal" id="category_form">
+    <div class="ncap-form-default">
+      <dl class="row">
+        <dt class="tit">
+          <label for="t_mane"><em>*</em>分类名称</label>
+        </dt>
+        <dd class="opt">
+          <input type="text" placeholder="名称" class="input-txt" name="category_name" value="{$category.category_name}">
+          <span class="err" id="err_name" style="color:#F00; display:none;"></span>
+          <p class="notic"></p>
+        </dd>
+      </dl>
+      <dl class="row">
+        <dt class="tit" colspan="2">
+          <label class="" for="s_sort">上级分类</label>
+        </dt>
+        <dd class="opt">
+          <div id="gcategory">
+            <select name="parent_id" id="parent_id" class="class-select valid">
+              {if condition="$category['parent_id'] eq 0"}
+              <option value="0">顶级分类</option>
+              {else /}
+              {foreach name="category_list" item="v" }
+                <option value="{$v[category_id]}" {if condition="$v['category_id'] eq $category['parent_id']"} selected {/if}>{$v[category_name]}</option>
+              {/foreach}
+              {/if}
+            </select>
+          </div>
+          <p class="notic">最多成为第二级, 只选择第一级即可</p>
+        </dd>
+      </dl>
+	  <dl class="row">
+        <dt class="tit">
+          <label for="t_mane"><em>*</em>导航显示</label>
+        </dt>
+        <dd class="opt">
+          <div class="onoff">
+            <label for="goods_category1" class="cb-enable {if condition="$category[is_show] eq 1"}selected{/if}">是</label>
+            <label for="goods_category0" class="cb-disable {if condition="$category[is_show] eq 0"}selected{/if}">否</label>
+            <input id="goods_category1" name="is_show" value="1" type="radio" {if condition="$category[is_show] eq 1"} checked="checked"{/if}>
+            <input id="goods_category0" name="is_show" value="0" type="radio" {if condition="$category[is_show] eq 0"} checked="checked"{/if}>
+          </div>
+          <p class="notic">是否在导航栏显示</p>
+        </dd>        
+      </dl>
+
+      <dl class="row">
+        <dt class="tit">
+          <label for="t_sort"><em>*</em>排序</label>
+        </dt>
+        <dd class="opt">
+          <input type="text" class="t_mane" name="sort_order" id="t_sort" value="{$category.sort_order}">
+          <span class="err" style="color:#F00; display:none;" id="err_sort_order"></span>
+          <p class="notic">根据排序进行由小到大排列显示。</p>
+        </dd>
+      </dl>
+      <div class="bot">
+      <input type="submit" value="提交"></div>
+    </div>
+    <input type="hidden" name="category_id" value="{$category.category_id}">
+  </form>
+</div>
+</body>
+</html>

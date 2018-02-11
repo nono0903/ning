@@ -1,0 +1,111 @@
+<!-- jQuery回顶部和建议 代码开始 -->
+<div id="tbox"> <a id="togbook" href="{:Url('contact')}"></a> <a id="gotop" href="javascript:void(0)"></a> </div>
+<!-- 代码结束 -->
+<div class="footer-wrapper">
+	<div id="footer" class="four">
+		<div id="first" class="widget-area">
+		
+			<div class="widget widget_archive">
+				<h3 class="widget-title">友情链接</h3>
+				<ul>
+					<li><a href="http://www.youxijia.top/">德玛西亚</a></li>
+					<li><a href="http://huaban.com/fy3zasyd6x/pins/">中北小黑</a></li>
+					<li><a href="https://www.juhe.cn/">聚合数据</a> </li>
+					<li><a href="https://www.showapi.com/">易用源</a> </li>
+					<li><a href="http://www.zixue.it/">自学it</a> </li>
+					<li><a href="http://www.itbool.com/">布尔教育</a> </li>
+				</ul>
+			</div>	
+		</div><!-- #first .widget-area -->
+	
+		<div id="second" class="widget-area">
+				<h3 class="widget-title">呵呵吧</h3>
+				<ul>
+					<li><a href="http://www.gcopyright.cn/">诚迅版权</a></li>
+					<li><a href="http://www.walhao.com/">沃好商城</a></li>
+					<li><a href="#">老王商城</a></li>
+					<li><a href="#">放心贷</a> </li>
+					<li><a href="#">百度</a> </li>
+				</ul>
+		</div><!-- #second .widget-area -->
+	
+		<div id="third" class="widget-area">
+		<div id="example-widget-3" class="widget example">
+			<h3 class="widget-title">时光痕迹</h3>
+			<ul class="post-list">		
+			{foreach name="foo" item="a"}
+			  	<li> 
+			  		<div class="frame">
+			  			<a href="{:url('art',['id'=>$a['blog_id'],'type'=>$a['type']])}"><img src="{$a['blog_id']|thumb_images=76,70}" style="width: 76px;height: 70px;"/></a>
+			  		</div>
+					<div class="meta">
+					    <h6><a href="{:url('art',['id'=>$a['blog_id'],'type'=>$a['type']])}">{$a['title']}</a></h6>
+					    <em>{$a['pubtime']|date="Y/m/d"}</em>
+				    </div>
+				</li>
+				{/foreach}
+			</ul>
+			
+		</div>
+		</div><!-- #third .widget-area -->
+		
+		<div id="fourth" class="widget-area">
+		<div class="widget">
+			<h3 class="widget-title">微信</h3>
+			<img src="static/images/qrcode.jpg" width="150px"height="150px" alt="">
+			<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1261127375'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1261127375%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>			
+		</div>
+		</div><!-- #fourth .widget-area -->
+	</div>
+
+</div>
+
+<div class="site-generator-wrapper">
+	<div class="site-generator">
+		
+
+	<span>&copy; Ning|寜&nbsp;&nbsp; Design by <a href="91ning.com">Ning</a>&nbsp;&nbsp;基于ThinkPHP制作&nbsp;&nbsp;QQ:976383555&nbsp;&nbsp;Email:nono0903@gmail.com</div></span>
+</div>
+
+<!--&lt;!&ndash; 多说公共JS代码 start (一个网页只需插入一次) &ndash;&gt;-->
+<!--<script type="text/javascript">-->
+<!--var duoshuoQuery = {short_name:"nono0903"};-->
+	<!--(function() {-->
+		<!--var ds = document.createElement('script');-->
+		<!--ds.type = 'text/javascript';ds.async = true;-->
+		<!--ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';-->
+		<!--ds.charset = 'UTF-8';-->
+		<!--(document.getElementsByTagName('head')[0] -->
+		 <!--|| document.getElementsByTagName('body')[0]).appendChild(ds);-->
+	<!--})();-->
+<!--</script>-->
+<!--&lt;!&ndash; 多说公共JS代码 end &ndash;&gt;-->
+<!-- 添加喜欢js公共代码 start-->
+	<script>
+		
+		function blikes(id){
+			var url = '/index.php/home/index/likethis?id='+id;
+			$.get(url,function (data){
+				//console.log(data.likethis);
+				$('#b' + id).fadeOut(500).fadeIn(500,function(){
+					
+					$('#b' + id).html(data.likethis);
+				});
+			},'json')
+		}
+
+		function tlike(id){
+				var url = '/index.php/home/index/techlike?id='+id;
+			$.get(url,function (data){
+				//console.log(data.likethis);
+				$('#t' + id).fadeOut(500).fadeIn(500,function(){
+					$('#t' + id).html(data.likethis);
+				});
+			},'json')
+		}
+		
+	</script>
+<!-- 添加喜欢js公共代码 end-->
+ 
+<script type="text/javascript" src="static/js/scripts.js"></script>
+
