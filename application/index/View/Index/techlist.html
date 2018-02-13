@@ -27,7 +27,7 @@
 			    <div class="clear"></div>		
 				<div class="details">
 					<span class="icon-standard"><a href="#">{$v['pubtime']|date="Y/m/d"}</a></span>
-					<span class="likes"><a href="javascript:void(0)" id = "t{$v['blog_id']}" onclick = "tlike({$v['blog_id']})" >{$v['likes']}<span class="addone"></span></a></span>
+					<span class="likes"><a href="javascript:void(0)" id="art{$v['blog_id']}" onclick="likes({$v['blog_id']})" >{$v['likes']}<span class="addone"></span></a></span>
 					<span class="comments"><a href="{:Url('/tech_article',['id'=>$v['blog_id']])}">{$v['click_count']}</a></span>
 				</div>
 			</div>

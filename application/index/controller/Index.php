@@ -61,6 +61,10 @@ class Index extends Base
  */
     public function art(){
        
+            //点击+1
+            Db::table('blog_info')
+            ->where('blog_id',input('id'))
+            ->setInc('click_count');
         
             $blogs =  $article = Blog_info::with('article,tag')->find(input('id'));
           
@@ -68,11 +72,24 @@ class Index extends Base
          
             //侧边栏图文模块
 
-            $aside = Db::table('blog_info')->field('blog_id,img,title,pubtime')->where('is_show="on"')->where('is_index="on"')->order('pubtime desc')->limit(4)->select();
+            $aside = Db::table('blog_info')
+            ->field('blog_id,img,title,pubtime')
+            ->where('is_show',1)
+            ->where('is_index',1)
+            ->where('type',1)
+            ->order('likes','desc')
+            ->limit(4)
+            ->select();
 
             $this->assign('aside',$aside);
             //侧边栏文章推荐
-            $arts = Db::table('blog_info')->field('blog_id,title')->where('is_show="on"')->order('click_count desc')->limit(9)->select();
+            $arts = Db::table('blog_info')
+            ->field('blog_id,title')
+            ->where('is_show="on"')
+            ->order('click_count desc')
+            ->where('type',1)
+            ->limit(9)
+            ->select();
             $this->assign('artlist',$arts);
 
 
@@ -153,21 +170,7 @@ class Index extends Base
     }
 
 
-    //添加喜欢
-    public function likes(){
-        Db::table('blog')->execute('update blog set likes=likes+1 where blog_id='.I('id'));
-        $like = Db::table('blog')->field('likes')->find(I('id'));
-        $this->ajaxReturn($like,'json');
-
-    }
-    public function techlike(){
-        Db::table('tech')->execute('update tech set likes=likes+1 where tech_id='.I('id'));
-        $like = M('tech')->field('likes')->find(I('id'));
-        $this->ajaxReturn($like,'json');
-    }
-
-
-
+  
 
 
 /**
@@ -176,6 +179,10 @@ class Index extends Base
  */
     public function tech_article(){
       
+        //点击+1
+         Db::table('blog_info')
+            ->where('blog_id',input('id'))
+            ->setInc('click_count');
         $article = Blog_info::with('article,tag')->find(input('id'));
         $this->assign('art',$article);
         return $this->fetch();

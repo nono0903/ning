@@ -165,6 +165,22 @@ class Api extends Controller
         return $result;
     }
 
+      //添加喜欢
+    public function likes(){
+        //喜欢+1
+         Db::table('blog_info')
+            ->where('blog_id',input('id'))
+            ->setInc('likes');
+
+        $likes = Db::table('blog_info')
+        ->where('blog_id',input('id'))
+        ->value('likes');
+
+        return $likes;
+
+    }
+  
+
 
 
 }

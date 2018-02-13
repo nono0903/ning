@@ -76,6 +76,20 @@
 			$('.intro').empty().html(data);
 		})
 	})
+
+	function likes(o){
+		$.ajax({
+				type:'POST',
+				data:{'id':o},
+				dataType:'json',
+				url:"/likes",
+				success:function(data){
+					$('#art'+o).fadeOut(500).fadeIn(500,function(){
+				   		$('#art'+o).empty().html(data);
+					})
+				}
+		});		
+	}
 </script>
  
 <script type="text/javascript" src="static/js/scripts.js"></script>

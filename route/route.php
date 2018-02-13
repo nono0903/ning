@@ -29,6 +29,7 @@ return [
     'contact'=>'index/Index/contact',
 
 
+
 //后台接口
     'login'=>'admin/index/login',
     'logout'=>'admin/index/logout',
@@ -59,6 +60,6 @@ return [
     'delTag'=>"Admin/Api/delTag",
     'getPage'=>"Admin/Api/getPage",
     'getIntro'=>"Admin/Api/getIntro",
-
+    'likes'=>"Admin/Api/likes",
 
 ];

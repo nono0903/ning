@@ -27,7 +27,7 @@
 
 			<div class="details">
 				<span class="icon-image">{$v['pubtime']|date="Y/m/d H:i:s"}</span>
-				<span class="likes"><a href="javascript:void(0)" onclick="blikes({$v['blog_id']})" id="b{$v['blog_id']}">{$v['likethis']}<span class="addone"></span></a></span>
+				<span class="likes"><a href="javascript:void(0)" id="art{$v['blog_id']}" onclick="likes({$v['blog_id']})">{$v['likes']}<span class="addone"></span></a></span>
 				<span class="comments"><a href="{:Url('/art',['id'=>$v['blog_id']])}#respond">{$v['click_count']}</a></span>
 			</div>
 			<!-- 插图 -->

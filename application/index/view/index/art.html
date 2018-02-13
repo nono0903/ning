@@ -35,7 +35,7 @@
 
 		<div class="details">
 			<span class="icon-image">{$art['pubtime']|date="Y/m/d"}</span>
-			<span class="likes"><a href="javascript:void(0)" onclick="blikes({$art['blog_id']})" id="b{$art['blog_id']}">{$art['likes']}</a></span>
+			<span class="likes"><a href="javascript:void(0)" id="art{$art['blog_id']}" onclick="likes({$art['blog_id']})">{$art['likes']}</a></span>
 			<span class="comments"><a href="#respond" >{$art['click_count']}</a></span>
 			
 		</div>
@@ -133,6 +133,7 @@
 
 
 <script>
+
 	$('title').html("{$art['title']}");
 	$(function(){
 		$.ajax({

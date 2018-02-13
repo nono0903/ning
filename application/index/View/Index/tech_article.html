@@ -21,7 +21,7 @@
 		<div class="details">
 			<h1 class="title"style="text-align: center;">{$art['title']}</h1>
 			<span class="icon-standard"><a href="#">{$art['pubtime']|date="Y/m/d H:i"}</a></span>
-			<span class="likes"><a href="javascript:void(0)" id = "t{$art['blog_id']}" onclick = "tlike({$art['blog_id']})" >{$art['likes']}<span class="addone"></span></a></span>
+			<span class="likes"><a href="javascript:void(0)" id="art{$art['blog_id']}" onclick="likes({$art['blog_id']})">{$art['likes']}<span class="addone"></span></a></span>
 			<span class="comments"><a href="#respond">{$art['click_count']}</a></span>
 		</div>
 			{$art['article']|raw|htmlspecialchars_decode}
