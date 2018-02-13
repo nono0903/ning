@@ -46,7 +46,7 @@
 		
 		<div class="tags">
 		{foreach name="$art['tag']" item = 'ta'}
-			<a href="{:Url('/artlist',['tag_id'=>$ta['tag_id'],type=>$art['type']])}">{:cache($ta['tag_id'])} &nbsp;</a>
+			<a href="{:Url('/artlist',['tag_id'=>$ta['tag_id'],'type'=>$art['type']])}">{:cache($ta['tag_id'])} &nbsp;</a>
 		{/foreach}
 		</div>
 
