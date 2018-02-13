@@ -32,7 +32,7 @@
         </td>
         <td align="center" abbr="article_time" axis="col7" class="">
             <div style="text-align: center; width: 35px;">
-                {if condition='$list[is_show] eq 1'}
+                {if condition="$list['is_show'] eq 1"}
                 <span class="yes" onClick="changeTableVal('blog_info','blog_id','{$list.blog_id}','is_show',this)" ><i class="fa fa-check-circle"></i>是</span>
                 {else /}
                 <span class="no" onClick="changeTableVal('blog_info','blog_id','{$list.blog_id}','is_show',this)" ><i class="fa fa-ban"></i>否</span>
