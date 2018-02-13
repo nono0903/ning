@@ -102,10 +102,10 @@
                 </dt>
                 <dd class="opt">
                     <div class="onoff">
-                        <label for="is_index1" class="cb-enable {if condition="$blog[is_index] eq 1"}selected{/if}">是</label>
-                        <label for="is_index0" class="cb-disable {if condition="$blog[is_index] eq 0"}selected{/if}">否</label>
-                        <input id="is_index1" name="is_index" value="1" type="radio" {if condition="$blog[is_index] eq 1"} checked="checked"{/if}>
-                        <input id="is_index0" name="is_index" value="0" type="radio" {if condition="$blog[is_index] eq 0"} checked="checked"{/if}>
+                        <label for="is_index1" class="cb-enable {if condition="$blog['is_index'] eq 1"}selected{/if}">是</label>
+                        <label for="is_index0" class="cb-disable {if condition="$blog['is_index'] eq 0"}selected{/if}">否</label>
+                        <input id="is_index1" name="is_index" value="1" type="radio" {if condition="$blog['is_index'] eq 1"} checked="checked"{/if}>
+                        <input id="is_index0" name="is_index" value="0" type="radio" {if condition="$blog['is_index'] eq 0"} checked="checked"{/if}>
                     </div>
                     <p class="notic"></p>
                 </dd>
