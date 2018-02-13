@@ -255,8 +255,7 @@ class Index extends Base {
 
 
     public function getCategoryList(){
-        dump(Env::get('think_path') );
-        exit;
+       
 
         $data = $this->getCategoryTree(0);
 
@@ -296,7 +295,7 @@ class Index extends Base {
             ->field('category_id,category_name')
             ->where('parent_id',0)
             ->select();
-
+        
         $this->assign('category',$data);
         $this->assign('category_list',$category_list);
         return view('_category');

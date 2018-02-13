@@ -42,11 +42,11 @@
             <select name="parent_id" id="parent_id" class="class-select valid">
               {if condition="$category['parent_id'] eq 0"}
               <option value="0">顶级分类</option>
-              {else /}
+              {/if}
               {foreach name="category_list" item="v" }
                 <option value="{$v[category_id]}" {if condition="$v['category_id'] eq $category['parent_id']"} selected {/if}>{$v[category_name]}</option>
               {/foreach}
-              {/if}
+              
             </select>
           </div>
           <p class="notic">最多成为第二级, 只选择第一级即可</p>

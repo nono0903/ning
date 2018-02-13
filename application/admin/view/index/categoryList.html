@@ -40,10 +40,10 @@
                 <th align="center" axis="col1" class="handle"><div style="text-align: center; width: 150px;">操作</div></th>
                 <th align="center" axis="col2"><div style="text-align: center; width: 60px;">分类id</div></th>
                 <th align="center" axis="col3"><div style="text-align: center; width: 200px;">分类名称</div></th>
-                <th align="center" axis="col4"><div style="text-align: center; width: 200px;">手机显示名称</div></th>
+                <!-- <th align="center" axis="col4"><div style="text-align: center; width: 200px;">手机显示名称</div></th> -->
                 <th align="center" axis="col5"><div style="text-align: center; width: 80px;">是否推荐</div></th>
                 <th align="center" axis="col6"><div style="text-align: center; width: 80px;">是否显示</div></th>
-                <th align="center" axis="col8"><div style="text-align: center; width: 60px;">分组</div></th>
+                <!-- <th align="center" axis="col8"><div style="text-align: center; width: 60px;">分组</div></th> -->
                 <th align="center" axis="col9"><div style="text-align: center; width: 60px;">排序</div></th>                
                 <th axis="col10"><div></div></th>
               </tr>
@@ -90,14 +90,14 @@
               </td>
               <td class="name">
                 <div style="text-align: center; width: 200px;">
-                  <input type="text" value="{$vo.name}" onChange="changeTableVal('category','category_id','{$vo.category_id}','category_name',this)" style="text-align: left; width:180px;"/>
+                  <input type="text" value="{$vo.category_name}" onChange="changeTableVal('category','category_id','{$vo.category_id}','category_name',this)" style="text-align: left; width:180px;"/>
                 </div>
               </td>
-              <td class="name">
+              <!-- <td class="name">
                 <div style="text-align: left; width: 200px;">                 
-                  <input type="text" value="{$vo.mobile_name}" onChange="changeTableVal('category','category_id','{$vo.category_id}','mobile_name',this)" style="text-align: left; width:180px;"/>
+                  <input type="text" value="{$vo.category_name}" onChange="changeTableVal('category','category_id','{$vo.category_id}','mobile_name',this)" style="text-align: left; width:180px;"/>
                 </div>
-              </td>
+              </td> -->
                 <td align="center" class="">
                   <div style="text-align: center; width: 80px;">
                     {if condition='$vo[is_index] eq 1'}
@@ -116,11 +116,11 @@
                     {/if}
                   </div>
                 </td>                     
-              <td class="sort">
-                <div style="text-align: center; width: 60px;">
-                  <input type="text" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onChange="changeTableVal('category','category_id','{$vo.category_id}','cat_group',this)" size="4" value="{$vo.cat_group}" />
-                </div>
-              </td>     
+           <!--    <td class="sort">
+               <div style="text-align: center; width: 60px;">
+                 <input type="text" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onChange="changeTableVal('category','category_id','{$vo.category_id}','cat_group',this)" size="4" value="{$vo.cat_group}" />
+               </div>
+             </td>    -->  
               <td class="sort">
                 <div style="text-align: center; width: 60px;">
                   <input type="text" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onChange="changeTableVal('category','category_id','{$vo.category_id}','sort_order',this)" size="4" value="{$vo.sort_order}" />
