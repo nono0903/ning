@@ -30,7 +30,7 @@
 			<div class="tags">
 			标签:
 			{foreach name="$art['tag']" item="tags"}
-			<a href="{:Url('/artlist',['tag_id'=>$tags['tag_id'],type=>$art['type']])}">{:cache($tags['tag_id'])}</a>&nbsp;
+			<a href="{:Url('/artlist',['tag_id'=>$tags['tag_id'],'type'=>$art['type']])}">{:cache($tags['tag_id'])}</a>&nbsp;
 			{/foreach}
 
 			</div>	
