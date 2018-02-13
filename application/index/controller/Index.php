@@ -465,12 +465,12 @@ class Index extends Base
 
     public function clean_up(){
 
-        $data = Db::table('article_c')->cursor();
+        $data = Db::table('article')->where('blog_id',142)->cursor();
         foreach ($data as $v){
             $in = [];
             $in['blog_id'] = $v['blog_id'];
             $in['article'] = $st = htmlspecialchars_decode($v['article']);
-            $new =  htmlentities($st);
+            $new =   html_entity_decode($v['article']);
 
             dump($v['article']);
             dump($new);

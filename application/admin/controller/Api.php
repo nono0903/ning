@@ -157,5 +157,14 @@ class Api extends Controller
         return $str;
     }
 
+    public function getIntro(){
+
+        $result = Db::table('quote')
+        ->group('RAND()')       
+        ->value('content');
+        return $result;
+    }
+
+
 
 }

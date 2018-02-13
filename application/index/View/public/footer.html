@@ -1,5 +1,5 @@
 <!-- jQuery回顶部和建议 代码开始 -->
-<div id="tbox"> <a id="togbook" href="{:Url('contact')}"></a> <a id="gotop" href="javascript:void(0)"></a> </div>
+<div id="tbox"> <a id="togbook" href="{:Url('/contact')}"></a> <a id="gotop" href="javascript:void(0)"></a> </div>
 <!-- 代码结束 -->
 <div class="footer-wrapper">
 	<div id="footer" class="four">
@@ -67,31 +67,16 @@
 	<span>&copy; Ning|寜&nbsp;&nbsp; Design by <a href="91ning.com">Ning</a>&nbsp;&nbsp;基于ThinkPHP制作&nbsp;&nbsp;QQ:976383555&nbsp;&nbsp;Email:nono0903@gmail.com</div></span>
 </div>
 
-	<script>
-		
-		function blikes(id){
-			var url = '/index.php/home/index/likethis?id='+id;
-			$.get(url,function (data){
-				//console.log(data.likethis);
-				$('#b' + id).fadeOut(500).fadeIn(500,function(){
-					
-					$('#b' + id).html(data.likethis);
-				});
-			},'json')
-		}
 
-		function tlike(id){
-				var url = '/index.php/home/index/techlike?id='+id;
-			$.get(url,function (data){
-				//console.log(data.likethis);
-				$('#t' + id).fadeOut(500).fadeIn(500,function(){
-					$('#t' + id).html(data.likethis);
-				});
-			},'json')
-		}
-		
-	</script>
 <!-- 添加喜欢js公共代码 end-->
+
+<script>
+	$(function(){
+		$.get('/getIntro',function(data){
+			$('.intro').empty().html(data);
+		})
+	})
+</script>
  
 <script type="text/javascript" src="static/js/scripts.js"></script>
 

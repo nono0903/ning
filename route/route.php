@@ -14,7 +14,9 @@
 Route::controller('Ueditor','Admin/Ueditor');
 Route::controller('Uploadify','Admin/Uploadify');
 return [
-    
+
+    'cl' =>'index/index/clean_up',
+   
     '/'=>'index/index/index',
     'artlist'=>'index/index/artlist',
     'tech_article'=>'index/Index/tech_article',
@@ -24,6 +26,7 @@ return [
     'viedo'=>'index/Index/viedo',
     'pict'=>'index/Index/pict',
     'jock'=>'index/Index/jock',
+    'contact'=>'index/Index/contact',
 
 
 //后台接口
@@ -55,5 +58,7 @@ return [
     'addTag'=>'Admin/Api/addTag',
     'delTag'=>"Admin/Api/delTag",
     'getPage'=>"Admin/Api/getPage",
+    'getIntro'=>"Admin/Api/getIntro",
+
 
 ];
