@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html lang="en">
+{include file="public/head"/}
+<body>
+{include file="public/header"/}
+<div class="wrapper">
+<!-- Begin Intro -->
+<div class="intro">即使遇到再大的风,在大的浪,也要勇敢的往前,只有勇往直前,才会见到胜利的曙光.机会不会等人太久,机遇更是可遇不可求,抓住机会把握好机遇,成功终会到来... </div>
+<!-- End Intro --> 
+
+<!-- Begin Container -->
+<div class="content box">
+<!-- 技术文章列表 -->
+	<h1 class="title">文章列表</h1>
+	{foreach name="list" item="v"}
+		<div class="sidebox widget" >
+			<h3 class="widget-title"style="display: inline-block;"><a href="{:Url('/tech_article',['id'=>$v['blog_id']])}">{$v['title']}</a></h3><span style='float: right;'><a href="{:Url('/tech_article',['id'=>$v['blog_id']])}">阅读（{$v['click_count']}）</a></span>
+			<div class="post format-standard box"> 			
+		  		<div class="one-third">
+		  			<a href="{:Url('/tech_article',['id'=>$v['blog_id']])}"><img src="{$v['blog_id']|thumb_images=76,70,$v['img']}" /></a>
+		  		</div>
+				<div class="two-third last">
+				    <h6>分类:&nbsp;<a href="{:Url('pws',['id'=>$v['techcat_id']])}"><em>{$v['techcat_name']}</em></a></h6>
+				   
+				    <p><a href="{:Url('/tech_article',['id'=>$v['blog_id']])}">{$v['intro']}</a></p>
+			    </div>
+			    <div class="clear"></div>		
+				<div class="details">
+					<span class="icon-standard"><a href="#">{$v['pubtime']|date="Y/m/d"}</a></span>
+					<span class="likes"><a href="javascript:void(0)" id = "t{$v['blog_id']}" onclick = "tlike({$v['blog_id']})" >{$v['likes']}<span class="addone"></span></a></span>
+					<span class="comments"><a href="{:Url('/tech_article',['id'=>$v['blog_id']])}">{$v['click_count']}</a></span>
+				</div>
+			</div>
+		</div>
+		{/foreach}
+		{$list|raw}
+<!-- 技术文章列表 -->	
+</div>
+<!-- End Container -->
+
+<!-- Begin Sidebar -->
+<div class="sidebar box">
+
+	<div class="sidebox widget">
+		<h3 class="widget-title">栏目列表</h3>
+			<ul>
+				<foreach name="cats" item="cv">
+			  	<li><a href="{:Url('artlist',['id'=>$cv['cat_id']])}">{$cv['cat_name']}</a></li>
+			  	</foreach>
+			  	
+				<foreach name="techcats" item="tc">
+				<li><a href="{:Url('pws',['id'=>$tc['techcat_id']])}">{$tc['techcat_name']}</a></li>
+				</foreach>
+				
+			</ul>
+	</div>
+	
+	<div class="sidebox widget">
+		<h3 class="widget-title">关键字搜索</h3>
+		<form class="searchform" method="post" action="#">
+			<input type="text" name="sear" placeholder="请输入要查找的内容..." />
+		</form>
+	</div>
+	
+	
+	
+	<div class="sidebox widget">
+		<h3 class="widget-title">最新文章</h3>
+			<ul>
+			<foreach name="arts" item="art">
+				<li><a href="{:Url('/tech_article',['id'=>$art['blog_id']])}">{$art['title']}</a></li>
+			</foreach>	
+			</li>
+		</ul>
+	</div>
+	<div class="sidebox widget">
+		
+	</div>
+
+	<div class="sidebox widget">
+	
+	</div>
+</div>
+<!--End Sidebar -->
+<div class="clear"></div>
+
+</div>
+<!-- End Wrapper -->
+
+<!-- Begin Footer -->
+{include file="public/footer"/}
+<!-- End Footer --> 
+
+</body>
+</html>

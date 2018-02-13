@@ -1,0 +1,44 @@
+<div class="scanlines"></div>
+<div class="header-wrapper opacity">
+	<div class="header">
+		<div class="logo">
+		    <a href="/">
+				<!--<img src="static/images/logo.png" alt="NingBlog" />-->
+			</a>
+	    </div>
+		<div id="menu-wrapper">
+			<div id="menu" class="menu">
+				<ul id="tiny">
+					<li class="active"><a href="/">首页</a></li>
+                    {foreach name="navigate" item="vo"}
+					<li><a href="{:url('/artlist',['id'=>$vo['category_id'],'type'=>$vo['type']])}">{$vo['category_name']}</a>
+                        <ul>
+                        {foreach name="$vo['sons']" item="v"}
+
+                                <li><a href="{:url('/artlist',['id'=>$v['category_id'],'type'=>$v['type']])}">{$v['category_name']}</a>
+
+                        {/foreach}
+                         </ul>
+					</li>					
+                    {/foreach}
+
+					<li><a href="{:url('/ct')}">你猜这里是什么</a>
+						<ul>
+							<li><a href="{:url('/co')}">故事相册</a></li>
+							<li>
+                                <a href="{:url('/viedo')}">百撕不得姐</a>
+                                <ul>
+                                    <li><a href="{:url('/jock')}">段子</a></li>
+                                    <li><a href="{:url('/pict')}">图片</a></li>
+                                    <li><a href="{:url('/viedo')}">视频</a></li>
+                                </ul>
+                              </li>
+						</ul>
+					</li>
+					<li><a href="{:url('/contact')}">联系方式</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>

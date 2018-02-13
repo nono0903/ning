@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!-- HTML5头文件 -->
+{include file="public/head"/}
+<!-- HTML5头文件 -->
+<body>
+<!-- Begin Header -->
+{include file="public/header"/}
+<!-- End Header -->
+
+<!-- Begin Wrapper -->
+<div class="wrapper"><!-- Begin Intro -->
+<div class="intro">学,是一个漫长的过程,需要仔细体会学习的心得,并不像做事,注重的是结果.</div>
+<!-- End Intro --> 
+
+<!-- Begin Container -->
+<div class="box">
+ 	<div class="post format-standard box"> 
+	
+		<h6 class="title">技术探讨></h6>
+		<div class="details">
+			<h1 class="title"style="text-align: center;">{$art['title']}</h1>
+			<span class="icon-standard"><a href="#">{$art['pubtime']|date="Y/m/d H:i"}</a></span>
+			<span class="likes"><a href="javascript:void(0)" id = "t{$art['blog_id']}" onclick = "tlike({$art['blog_id']})" >{$art['likes']}<span class="addone"></span></a></span>
+			<span class="comments"><a href="#respond">{$art['click_count']}</a></span>
+		</div>
+			{$art['article']|raw|htmlspecialchars_decode}
+		
+			
+			<div class="tags">
+			标签:
+			{foreach name="$art['tag']" item="tags"}
+			<a href="{:Url('/artlist',['tag_id'=>$tags['tag_id'],type=>$art['type']])}">{:cache($tags['tag_id'])}</a>&nbsp;
+			{/foreach}
+
+			</div>	
+ </div>
+			
+			<div class="post-nav" id="flip">
+				
+				<div class="clear"></div>
+			</div>
+		</div>
+
+
+		<div class="clear"></div>
+			<!-- Begin Comment Wrapper -->
+	<div id="comment-wrapper" class="box">
+		  
+		  <!-- Begin Comments --> 
+		  <div id="comments">           
+		
+		
+		
+		</div>	
+		<!-- End Comment Wrapper -->
+	</div>
+
+</div>
+<!-- End Container -->
+
+</div>
+<!-- End Wrapper -->
+
+<!-- Begin Footer -->
+{include file="public/footer"/}
+<!-- End Footer --> 
+
+<script>
+	$('title').html("{$art['title']}");
+	$(function(){
+		$.ajax({
+				type:'POST',
+				data:{'id':{$art['blog_id']},'type':{$art['type']}},
+				dataType:'json',
+				url:"/getPage",
+				success:function(data){
+				   $('#flip').empty().html(data);
+				}
+		});		
+	})
+</script>
+
+</body>
+</html>

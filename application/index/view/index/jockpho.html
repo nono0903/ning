@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!-- HTML5头文件 -->
+{include file="public/head"/}
+<!-- HTML5头文件 -->
+<link href="static/css/photostyle.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="static/css/lightbox.css" type="text/css" media="screen" />
+<script type="text/javascript">
+  $(document).ready(function(){ 
+    $(".zoom,.ilike").hide();
+    $(".zoom").each(function(){
+    var src=$(this).siblings("img").attr("src");
+      $(this).attr({href:src});
+    });
+    $("#waterfall li").mouseover(function(){
+      $(this).addClass("hover");
+      $(this).find(".zoom,.ilike").show();
+    });
+    $("#waterfall li").mouseout(function(){
+      $(this).removeClass("hover");
+      $(this).find(".zoom,.ilike").hide();
+    });
+  });
+</script>
+<body>
+<!-- Begin Header -->
+{include file="public/header"/}
+<!-- End Header -->
+
+<!-- Begin Wrapper -->
+<div class="wrapper"><!-- Begin Intro -->
+<div class="intro"> </div>
+<!-- End Intro --> 
+
+<!-- Begin Container -->
+<div class="box">
+
+	<h1 class="title">趣图,姑且这样叫吧~</h1>
+
+    <div id="main">
+      <ul id="waterfall">   
+          {foreach name="res" item="pho"} 
+            <li>
+              <div class="img_block">
+                  <img src="{$pho['image0']}" />
+                    <a href="javascript:;" rel="lightbox[plants]" class="zoom">放大</a>
+                    <a href="javascript:;" class="ilike">喜欢</a>
+              </div>
+               <h6>{$pho['text']}</h6>
+                <div class="iNum"><span>1</span><a href="javascript:;">4</a></div>
+                <p>{$pho['create_time']}</p>                
+          </li>
+          {/foreach} 
+        </ul>
+      <div class="clear"></div>
+      <div style="visibility:hidden" id=loading class=loading><p><img src=""><IMG src="static/images/load.gif"></p></div>
+    </div>
+    <div class="clear"></div>
+    <div class="post-nav">
+        <span class="nav-prev"><a  id="pre">&larr; 上一页</a></span>
+        <span class="nav-next"><a  id="nex">下一页 &rarr;</a></span>
+      </div>
+    </div>
+   
+</div>
+<!-- End Container -->
+
+</div>
+<!-- End Wrapper -->
+
+<!-- Begin Footer -->
+{include file="public/footer"/}
+<!-- End Footer --> 
+<script src="static/js/lightbox.js"></script>
+<script>
+$(function(){    
+  var $waterfall = $('#waterfall');    
+  $waterfall.masonry({
+    columnWidth: 250,
+    resizeable: true
+  });
+});
+</script>
+
+</body>
+</html>

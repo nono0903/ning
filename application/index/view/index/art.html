@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<!-- HTML5头文件 -->
+{include file="public/head"/}
+<!-- HTML5头文件 -->
+
+<body class="single">
+<!-- <div class="scanlines"></div> -->
+
+<!-- Begin Header -->
+{include file="public/header"/}
+<!-- End Header -->
+
+<!-- Begin Wrapper -->
+<div class="wrapper"><!-- Begin Intro -->
+<div class="intro">能自己动手去做的事就去做,别bb,别bb,别bb! </div>
+<ul class="social">
+</ul><!-- End Intro --> 
+
+	<!-- Begin Main Image -->
+	<div class="main-image" >
+		<div class="outer">
+			<span class="inset"><img src="{$art['img']}" alt="{$art['title']}" /></span>
+		</div>
+	</div>
+	<!-- End Main Image --> 
+
+
+<!-- Begin Container -->
+<div class="content">
+
+	<!-- Begin Post -->
+	<div class="post format-image box"> 
+
+
+		<div class="details">
+			<span class="icon-image">{$art['pubtime']|date="Y/m/d"}</span>
+			<span class="likes"><a href="javascript:void(0)" onclick="blikes({$art['blog_id']})" id="b{$art['blog_id']}">{$art['likes']}</a></span>
+			<span class="comments"><a href="#respond" >{$art['click_count']}</a></span>
+			
+		</div>
+
+			<h1 class="title">{$art['title']}</h1>
+			{$art['article']|raw|htmlspecialchars_decode}
+
+		
+		<div class="tags">
+		{foreach name="$art['tag']" item = 'ta'}
+			<a href="{:Url('/artlist',['tag_id'=>$ta['tag_id'],type=>$art['type']])}">{:cache($ta['tag_id'])} &nbsp;</a>
+		{/foreach}
+		</div>
+
+
+ </div>
+		
+		<div class="post-nav" id="flip">
+			
+			<div class="clear"></div>
+		</div>
+
+	</div>
+	<!-- End Post --> 	
+	
+		<!-- Begin Comment Wrapper -->
+	<div id="comment-wrapper" class="box">
+		  
+		  <!-- Begin Comments --> 
+		 <div id="comments">           
+		<!-- End Comments -->
+		
+		</div>
+		<!-- End Form -->	
+		
+		
+		
+		<!-- End Comment Wrapper -->
+	</div>
+
+<!-- End Container -->
+
+<!-- Begin Sidebar -->
+<div class="sidebar box">
+<!-- 图文模块 -->
+  <div class="sidebox widget">
+			<h3 class="widget-title">图文欣赏</h3>
+			<ul class="post-list">
+				{foreach name="aside" item="a"}
+			  	<li> 
+			  		<div class="frame">
+			  			<a href="{:Url('art',['id'=>$a['blog_id']])}"><img src="{$a['blog_id']|thumb_images=76,70,$a['thumb_img']}" style="width: 76px;height: 70px;"/></a>
+			  		</div>
+					<div class="meta">
+					    <h6><a href="{:Url('art',['id'=>$a['blog_id']])}">{$a['title']}</a></h6>
+					    <em>{$a['pubtime']|date="Y/m/d"}</em>
+				    </div>
+				</li>
+				{/foreach}
+			</ul>
+			
+	</div>
+<!-- 图文模块 -->
+	<div class="sidebox widget">
+		<h3 class="widget-title">推荐文章</h3>
+		<ol>
+		{foreach name="artlist" item="list"}
+          <li><a href="{:Url('art',['id'=>$list['blog_id']])}">{$list['title']}</a></li>
+        {/foreach}  
+        </ol>
+	</div>
+	
+	<div class="sidebox widget">
+		
+	</div>
+	<div class="sidebox widget">
+		
+	</div>
+	<div class="sidebox widget">
+		<h3 class="widget-title">最新回复</h3>
+		
+	
+	</div>
+</div>
+<!--End Sidebar -->
+<div class="clear"></div>
+
+</div>
+<!-- End Wrapper -->
+
+<!-- Begin Footer -->
+{include file="public/footer"/}
+<!-- End Footer --> 
+
+
+
+<script>
+	$('title').html("{$art['title']}");
+	$(function(){
+		$.ajax({
+				type:'POST',
+				data:{'id':{$art['blog_id']},'type':{$art['type']}},
+				dataType:'json',
+				url:"/getPage",
+				success:function(data){
+				   $('#flip').empty().html(data);
+				}
+		});		
+	})
+</script>
+</body>
+</html>
