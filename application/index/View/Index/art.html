@@ -82,7 +82,7 @@
 <div class="sidebar box">
 <!-- 图文模块 -->
   <div class="sidebox widget">
-			<h3 class="widget-title">图文欣赏</h3>
+			<h3 class="widget-title">图文</h3>
 			<ul class="post-list">
 				{foreach name="aside" item="a"}
 			  	<li> 
@@ -100,10 +100,10 @@
 	</div>
 <!-- 图文模块 -->
 	<div class="sidebox widget">
-		<h3 class="widget-title">推荐文章</h3>
+		<h3 class="widget-title">推荐</h3>
 		<ol>
 		{foreach name="artlist" item="list"}
-          <li><a href="{:Url('art',['id'=>$list['blog_id']])}">{$list['title']}</a></li>
+          <li><a href="{:Url('/art',['id'=>$list['blog_id']])}">{$list['title']}</a></li>
         {/foreach}  
         </ol>
 	</div>
