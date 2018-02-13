@@ -28,6 +28,7 @@ return [
 
 //后台接口
     'login'=>'admin/index/login',
+    'logout'=>'admin/index/logout',
     'admin'=>'admin/index/index',
     'welcome'=>'admin/index/welcome',
     'articlelist'=>'admin/index/articlelist',
@@ -41,6 +42,7 @@ return [
     'CategoryList'=>'Admin/Index/getCategoryList',
     'delCategory'=>"Admin/Index/delCategory",
     'addEditCategory'=>"Admin/index/AddEditCategory",
+    'cleanCache'=>"Admin/index/cleanCache",
 
 
 

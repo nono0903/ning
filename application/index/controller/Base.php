@@ -50,8 +50,7 @@ class Base extends Controller
         $tags = Db::table('tags')
         ->cursor();
         foreach ($tags as $val) {
-           Cache::tag('tag')->get($val['tag_id'])?false:Cache::tag('tag')->set($val['tag_id'],$val['tag_name']);
-           
+           Cache::tag('tag')->get($val['tag_id'])?false:Cache::tag('tag')->set($val['tag_id'],$val['tag_name']);     
         }
      
     } 
