@@ -49,21 +49,25 @@ function jsonReturn($status=0,$msg='',$data=''){
  */
 function navigate(){
     //todo 可将导航信息放进缓存
-    $data = Db::table('category')
-        ->field('category_id,category_name,type')
-        ->where('is_index',1)
-        ->order('sort','desc')
-        ->select();
-
-    foreach ($data as $k =>$v){
-        $data[$k]['sons'] = Db::table('category')
+   return Cache::remember('name',function(){
+        $data = Db::table('category')
             ->field('category_id,category_name,type')
-            ->where('parent_id',$v['category_id'])
-            ->order('sort','desc')
+            ->where('is_index',1)
+            ->order('sort_order','desc')
             ->select();
-    }
 
-    return $data;
+        foreach ($data as $k =>$v){
+            $data[$k]['sons'] = Db::table('category')
+                ->field('category_id,category_name,type')
+                ->where('parent_id',$v['category_id'])
+                ->order('sort_order','desc')
+                ->select();
+        }
+
+        return $data;
+    
+    });
+    
 }
 
 /**
