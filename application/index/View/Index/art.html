@@ -87,10 +87,10 @@
 				{foreach name="aside" item="a"}
 			  	<li> 
 			  		<div class="frame">
-			  			<a href="{:Url('art',['id'=>$a['blog_id']])}"><img src="{$a['blog_id']|thumb_images=76,70,$a['thumb_img']}" style="width: 76px;height: 70px;"/></a>
+			  			<a href="{:Url('/art',['id'=>$a['blog_id']])}"><img src="{$a['blog_id']|thumb_images=76,70,$a['thumb_img']}" style="width: 76px;height: 70px;"/></a>
 			  		</div>
 					<div class="meta">
-					    <h6><a href="{:Url('art',['id'=>$a['blog_id']])}">{$a['title']}</a></h6>
+					    <h6><a href="{:Url('/art',['id'=>$a['blog_id']])}">{$a['title']}</a></h6>
 					    <em>{$a['pubtime']|date="Y/m/d"}</em>
 				    </div>
 				</li>
