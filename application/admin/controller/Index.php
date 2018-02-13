@@ -342,13 +342,18 @@ class Index extends Base {
     public function login(){
         if(input('m')==18668418885){
             session('admin',1);
-        }
         $this->success('登录成功','/admin');
+        }
     }
 
     public function logout(){
-
+        session_destroy();
+        session('admin',null);
     }
+
+    public function cleanCache(){
+       Cache::clear(); 
+    }       
 
 
 

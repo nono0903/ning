@@ -254,13 +254,12 @@ class Index extends Base
         }
         
 		if (Cache::get($nu)) {
-			$res = Cache::get($nu);
+			$res = Cache::get('viedo'.$nu);
 		}else{
-      
 			$res = $this->sp($nu);
 			$res['nu'] = $nu;
             $res['text'] = trim($res['text']);
-			Cache::set($nu,$res);
+			Cache::set('viedo'.$nu,$res);
 		}
  
         $this->assign('res',$res);
