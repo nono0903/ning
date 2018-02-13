@@ -19,38 +19,25 @@
 	
 		<h6 class="title">技术探讨></h6>
 		<div class="details">
-			<h1 class="title"style="text-align: center;">{$techart['title']}</h1>
-			<span class="icon-standard"><a href="#">{$techart['pubtime']|date="Y/m/d H:i"}</a></span>
-			<span class="likes"><a href="javascript:void(0)" id = "t{$techart['blog_id']}" onclick = "tlike({$techart['blog_id']})" >{$techart['likes']}<span class="addone"></span></a></span>
-			<span class="comments"><a href="#respond">{$techart['click_count']}</a></span>
+			<h1 class="title"style="text-align: center;">{$art['title']}</h1>
+			<span class="icon-standard"><a href="#">{$art['pubtime']|date="Y/m/d H:i"}</a></span>
+			<span class="likes"><a href="javascript:void(0)" id = "t{$art['blog_id']}" onclick = "tlike({$art['blog_id']})" >{$art['likes']}<span class="addone"></span></a></span>
+			<span class="comments"><a href="#respond">{$art['click_count']}</a></span>
 		</div>
-			{$techart['article']|raw|htmlspecialchars_decode}
+			{$art['article']|raw|htmlspecialchars_decode}
 		
 			
 			<div class="tags">
 			标签:
-			{foreach name="techart['tag']" item="tags"}
-			<a href="#">{$tags['tag_id']}</a>&nbsp;
+			{foreach name="$art['tag']" item="tags"}
+			<a href="{:Url('/artlist',['tag_id'=>$tags['tag_id'],type=>$art['type']])}">{:cache($tags['tag_id'])}</a>&nbsp;
 			{/foreach}
+
 			</div>	
-			<div class="ds-share flat" data-thread-key="tech{$techart['blog_id']}" data-title="{$techart['title']}" data-images="" data-content='{$techart["article"]}' data-url="http://91ning.com{:Url('fullwith?id='.$techart['blog_id'])}">
-    <div class="ds-share-inline">
-      <ul  class="ds-share-icons-16">      	
-      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
-        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
-        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-      	
-      </ul>
-      <div class="ds-share-icons-more">
-      </div>
-    </div>
  </div>
 			
-			<div class="post-nav">
-				<span class="nav-prev"><a href="{:Url('fullwith?id='.($techart['blog_id']-1))}"id="pre">&larr; 上一篇</a></span>
-				<span class="nav-next"><a href="{:Url('fullwith?id='.($techart['blog_id']+1))}" id='next'>下一篇 &rarr;</a></span>
+			<div class="post-nav" id="flip">
+				
 				<div class="clear"></div>
 			</div>
 		</div>
@@ -62,17 +49,7 @@
 		  
 		  <!-- Begin Comments --> 
 		  <div id="comments">           
-		<!-- End Comments -->
-		<div id="comment-form" class="comment-form">
-			<div id="respond">
-				<h3 id="reply-title">发表评论:</h3>
-				<!-- 多说评论框 start -->
-			<div class="ds-thread" data-thread-key="tech{$techart['blog_id']}" data-title="{$techart['title']}" data-url="http://91ning.com{:Url('fullwith?id='.$techart['blog_id'])}"></div>
-				<!-- 多说评论框 end -->
-
-			</div><!-- #respond -->		  	
-		</div>
-		<!-- End Form -->	
+		
 		
 		
 		</div>	
@@ -90,7 +67,18 @@
 <!-- End Footer --> 
 
 <script>
-	$('title').html('{$techart['title']}');
+	$('title').html("{$art['title']}");
+	$(function(){
+		$.ajax({
+				type:'POST',
+				data:{'id':{$art['blog_id']},'type':{$art['type']}},
+				dataType:'json',
+				url:"/getPage",
+				success:function(data){
+				   $('#flip').empty().html(data);
+				}
+		});		
+	})
 </script>
 
 </body>

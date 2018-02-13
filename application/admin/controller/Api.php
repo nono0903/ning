@@ -134,5 +134,28 @@ class Api extends Controller
 
     }
 
+    public function getPage(){
+        $id = input('id');
+        $type = input('type');
+        
+        $prev = Db::table('blog_info')
+        ->where([['blog_id','<',$id],['type','=',$type]])
+        ->order('blog_id','desc')
+        ->field('blog_id,title')
+        ->find();
+        $next = Db::table('blog_info')
+        ->where([['blog_id','>',$id],['type','=',$type]])
+        ->field('blog_id,title')
+        ->find();
+        $page['prev'] = empty($prev)?['blog_id'=>$id,'title'=>'没有更多内容...']:$prev;
+        $page['next'] = empty($next)?['blog_id'=>$id,'title'=>'没有更多内容...']:$next;
+        ($type == 1) && $url = '/art';
+        ($type == 2) && $url = '/tech_article';
+
+        $str = '<span class="nav-prev"><a href="'.Url($url,['id'=>$page['prev']['blog_id']]).'">&larr;'. $page['prev']['title'].'</a></span>';
+        $str .= '<span class="nav-next"><a href="'.Url($url,['id'=>$page['next']['blog_id']]).'">'.$page['next']['title'] .'&rarr;</a></span>';
+        return $str;
+    }
+
 
 }

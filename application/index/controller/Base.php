@@ -10,6 +10,7 @@ namespace app\index\controller;
 
 use think\Db;
 use think\Controller;
+use think\facade\Cache;
 
 class Base extends Controller
 {
@@ -25,7 +26,7 @@ class Base extends Controller
 
     public function initialize()
     {
-
+        $this->checkTag();
 
 
         //todo 从此截断对边栏赋值
@@ -43,4 +44,15 @@ class Base extends Controller
 //        }
 
     }
+
+    public function checkTag(){
+
+        $tags = Db::table('tags')
+        ->cursor();
+        foreach ($tags as $val) {
+           Cache::tag('tag')->get($val['tag_id'])?false:Cache::tag('tag')->set($val['tag_id'],$val['tag_name']);
+        }
+        
+
+    } 
 }

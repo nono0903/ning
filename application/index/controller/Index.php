@@ -8,6 +8,7 @@ use think\facade\Cache;
 use app\index\model\Article;
 use app\admin\model\Blog_info;
 
+
 class Index extends Base
 {
 
@@ -43,7 +44,7 @@ class Index extends Base
              ->field('blog_id,title,pubtime,likes,click_count')
              ->where([['is_index','=',1],['type','=',2]])
              ->order('pubtime desc')
-             ->limit(1,4)
+             ->limit(1,5)
              ->select();
          $this->assign('blogs3',$blogs3);
 
@@ -59,40 +60,23 @@ class Index extends Base
  * @Authorhtl {Ning<nk11@qq.com>}
  */
     public function art(){
-        if (!IS_POST) {
-            //博文查询展示
-            $id = I('id');
-            $blogs = Db::table('blog')->cache(true)->where('blog_id='.$id)->relation(true)->find();
-            //执行点击量加1入库
-            if ($blogs) {
-               $this->assign('art',$blogs);
-            Db::table('blog')->execute('update blog set click_count=click_count+1 where blog_id='.$id);
-            }else{
-                $this->redirect('index');
-            }
-
+       
+        
+            $blogs =  $article = Blog_info::with('article,tag')->find(input('id'));
+          
             $this->assign('art',$blogs);
+         
             //侧边栏图文模块
 
-            $aside = Db::table('blog')->cache(true)->field('blog_id,thumb_img,title,pubtime')->where('is_show="on"')->where('is_index="on"')->order('pubtime desc')->limit(4)->select();
+            $aside = Db::table('blog_info')->field('blog_id,img,title,pubtime')->where('is_show="on"')->where('is_index="on"')->order('pubtime desc')->limit(4)->select();
 
             $this->assign('aside',$aside);
             //侧边栏文章推荐
-            $arts = Db::table('blog')->cache(true)->field('blog_id,title')->where('is_show="on"')->order('click_count desc')->limit(9)->select();
+            $arts = Db::table('blog_info')->field('blog_id,title')->where('is_show="on"')->order('click_count desc')->limit(9)->select();
             $this->assign('artlist',$arts);
 
-            //侧边栏分类推荐
-            $cats = M('cat')->cache(true)->where('parent_id != 0')->select();
-            $techcats = M('techcat')->cache(true)->where('techparent_id != 0')->select();
 
-            $this->assign('techcats',$techcats);
-            $this->assign('cats',$cats);
-            $this->footer();
-
-    	   $this->display();
-           }else{
-
-           }
+           return $this->fetch();
 
     }
 /**
@@ -100,29 +84,48 @@ class Index extends Base
  * @Authorhtl {Ning<nk11@qq.com>}
  */
     public function artlist(){
+
         $type = input('type',false);
         $category = input('id');
+        $tag_id = input('tag_id');
 
-         $list = Db::table('blog_info')
-         ->field('blog_id,pubtime,likes,click_count,thumb_img1,intro,category_id,title')
-         ->where('category_id',$category)
-         ->order('pubtime desc')
-         ->paginate(8,false,['query'=>"type=$type"]);
+        //通过分类获取
+        if($category){
+          $categorys = Db::table('category')
+          ->where('parent_id',$category)
+          ->column('category_id');
 
-         if(empty($list)){
+          $map[]= empty(!$categorys)?['category_id','in',$categorys]:['category_id','=',$category];
 
-            $list = Db::table('blog_info')
-             ->field('blog_id,pubtime,likes,click_count,thumb_img1,intro,category_id,title')
-             ->wherein('category_id', Db::table('category')
-                ->where('parent_id',$category)
-                ->column('category_id'))
-             ->order('pubtime desc')
-             ->paginate(8,false,['query'=>"type=$type"]);
-         }
-         
-
-        if($type == 1){
+           $list = Db::table('blog_info')
+           ->field('blog_id,pubtime,likes,click_count,img,intro,category_id,title')
+           ->where($map)
+           ->order('pubtime desc')
+           ->paginate(8,false,[
+              'type'     => 'bootstrap',
+              'var_page' => 'page',
+              'query'=>request()->param()
+              ]);
+          }
+          //通过标签获取
+          if($tag_id){
+            $arts = Db::table('article_tags')
+            ->where('tag_id',$tag_id)
+            ->column('blog_id');
             
+            $list = Db::table('blog_info')
+            ->where('blog_id','in',$arts)
+            ->field('blog_id,pubtime,likes,click_count,img,intro,category_id,title')
+            ->order('pubtime desc')
+            ->paginate(8,false,[
+              'type'     => 'bootstrap',
+              'var_page' => 'page',
+              'query'=>request()->param()
+              ]);
+
+          }
+         
+        if($type == 1){            
             $aside = Db::table('blog_info')
                 ->field('blog_id,img,title,pubtime')
                 ->where('is_show',1)
@@ -137,55 +140,16 @@ class Index extends Base
                 ->field('blog_id,title')
                 ->where('is_show="on"')
                 ->order('pubtime desc')
+                ->where('type',$type)
                 ->limit(9)
                 ->select();
             $this->assign('artlist',$arts);
-
-
         }
-
         $this->assign('list',$list);// 赋值数据集
-        return $this->fetch();
-        exit;
-    if (!IS_POST) {
-         //侧边栏图文模块
-            $aside = Db::table('blog')->cache(true)->field('blog_id,img,title,pubtime')->where('is_show="on"')->where('is_index="on"')->order('pubtime desc')->limit(4)->select();
+        if ($type == 1) return $this->fetch('artlist');
+        if($type == 2) return $this->fetch('techlist');
 
-            $this->assign('aside',$aside);
-            //侧边栏文章推荐
-            $arts = Db::table('blog')->cache(true)->field('blog_id,title')->where('is_show="on"')->order('pubtime desc')->limit(9)->select();
-            $this->assign('artlist',$arts);
-            // //侧边栏热门点击
-            // $hots = Db::table('blog')->field('blog_id,title')->where('is_show="on"')->order('click_count desc')->limit(9)->select();
-            // $this->assign('hots',$hots);
 
-        //重头戏开始了博文分类,分页,展示
-            $cat_id = I('id');
-            $arts = Db::table('blog');
-            //判断有没有id传入
-            if(empty($cat_id)){
-                //没有id展示所有
-                $count = $arts->count();
-                $page = new \Think\Page($count,8);
-                $show = $page->show();
-                $list = $arts->cache(true)->field('blog_id,pubtime,likes,click_count,thumb_img1,intro,cat_id,title,cat_name')->order('pubtime desc')->limit($page->firstRow.','.$page->listRows)->select();
-            }else{
-                //有id传入展示分类下的内容
-                $count = $arts->where('cat_id='.$cat_id)->count();
-                if (!$count) {//分类下没有文章跳转主页
-                        $this->redirect('index');
-                }
-                $page = new \Think\Page($count,8);
-                $show = $page->show();
-                $list = $arts->cache(true)->field('blog_id,pubtime,likes,click_count,thumb_img1,intro,cat_id,title,cat_name')->where('cat_id='.$cat_id)->order('pubtime desc')->limit($page->firstRow.','.$page->listRows)->select();
-            }
-
-        
-        $this->assign('page',$show);// 赋值分页输出
-        $this->footer();
-
-    	$this->display();
-    }
     }
 
 
@@ -203,48 +167,6 @@ class Index extends Base
     }
 
 
-/**
- * 技术文章列表
- * @Authorhtl {Ning<nk11@qq.com>}
- */
-    public function pws(){
-        $arts = M('tech');
-        $cat_id = I('id');
-        /*没有分类id传入查询所有数据，分页显示*/
-        if(empty($cat_id)){
-        $count = $arts->count();
-        $page = new \Think\Page($count,8);
-        $show = $page->show();
-        $list = $arts->cache(true)->order('pubtime desc')->limit($page->firstRow.','.$page->listRows)->select();
-
-        }
-        /*有分类id查询分类下数据，分页显示*/
-        else{
-        $count = $arts->where('techcat_id='.$cat_id)->count();
-        if (!$count) {
-            $this->redirect('index');
-        }
-        $page = new \Think\Page($count,8);
-        $show = $page->show();
-        $list = $arts->cache(true)->where('techcat_id='.$cat_id)->order('pubtime desc')->limit($page->firstRow.','.$page->listRows)->select();
-        }
-        $this->assign('list',$list);// 赋值数据集
-        $this->assign('page',$show);// 赋值分页输出
-
-        //侧边栏文章推荐
-        $arts = Db::table('tech')->cache(true)->field('tech_id,title')->order('pubtime desc')->limit(9)->select();
-        $this->assign('arts',$arts);
-
-        //侧边栏分类查看
-        $cats = M('cat')->cache(true)->where('parent_id != 0')->select();
-        $techcats = M('techcat')->cache(true)->where('techparent_id != 0')->select();
-        $this->assign('techcats',$techcats);
-        $this->assign('cats',$cats);
-
-        $this->footer();
-        $this->display('techlist');
-    }
-
 
 
 
@@ -253,23 +175,9 @@ class Index extends Base
  * @Authorhtl {Ning<nk11@qq.com>}
  */
     public function tech_article(){
-
+      
         $article = Blog_info::with('article,tag')->find(input('id'));
-
-        //实例化对象查询文章内容
-//        $tech_id = I('get.id');
-//        $techart = Db::table('tech')->cache(true)->relation(true)->find($tech_id);
-//        $this->footer();
-//        //判断是否能查询到文章
-//        if ($techart) {//查询到文章，将文章点击量+1并将查询出来的数据发送到模版
-//            $this->assign('techart',$techart);
-//            Db::table('tech')->execute('update tech set click_count=click_count+1 where tech_id='.$tech_id);
-//            $this->display('techart');
-//        }else{//查询不到跳转主页
-//            $this->redirect('index');
-//        }
-//        $article['article'] = htmlspecialchars_decode($article['article']);
-        $this->assign('techart',$article);
+        $this->assign('art',$article);
         return $this->fetch();
 
     }
@@ -285,8 +193,8 @@ class Index extends Base
     public function contact(){
         /*判断是否有提交，没有提交吊用底部信息显示模版*/
         if(!request()->isPost()){
-            $this->footer();
-            $this->display();
+            
+            return $this->fetch();
 
         }else{/*有提交实例化留言表，发送邮件*/
             $con = Db::table('contact');//实例化对象
@@ -319,18 +227,17 @@ class Index extends Base
 
 
     public function co(){
-        $this->footer();
-        $this->display('photo');
+        return $this->fetch('photo');
         }
 
 
     public function jock(){
         $res = $this->duanzi();
-        $this->display();
+        return $this->fetch();
     }
 
     public function pict(){
-        $this->display();
+        return $this->fetch();
 
     }
 /**
@@ -341,30 +248,23 @@ class Index extends Base
  */
     public function viedo(){
 
-        $nu = I('get.nu')?I('get.nu'):0;
+        $nu = input('nu')?input('nu'):0;
         if ($nu<0) {
           $nu = mt_rand(10,99);
         }
-
-        S(array(
-		'type'=>'file',
-		'prefix'=>'viedo',
-		'expire'=>86400)
-		);
-
-		if (S($nu)) {
-			$res = S($nu);
+        
+		if (Cache::get($nu)) {
+			$res = Cache::get($nu);
 		}else{
+      
 			$res = $this->sp($nu);
 			$res['nu'] = $nu;
             $res['text'] = trim($res['text']);
-			S($nu,$res);
+			Cache::set($nu,$res);
 		}
-
-
-        $this->footer();
+ 
         $this->assign('res',$res);
-        $this->display();
+        return $this->fetch();
 
     }
 
@@ -417,7 +317,7 @@ class Index extends Base
         $page = mt_rand(1,9);
         $result = $this->budejie($type,$page);
         $this->assign('res',$result);
-        $this->display('jockpho');
+        return $this->fetch('jockpho');
     }
 
 
@@ -552,78 +452,7 @@ class Index extends Base
         return $result;
     }
 
-    public function index1()
-    {
-//        return '<style type="text/css">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} a{color:#2E5CD5;cursor: pointer;text-decoration: none} a:hover{text-decoration:underline; } body{ background: #fff; font-family: "Century Gothic","Microsoft yahei"; color: #333;font-size:18px;} h1{ font-size: 100px; font-weight: normal; margin-bottom: 12px; } p{ line-height: 1.6em; font-size: 42px }</style><div style="padding: 24px 48px;"> <h1>:) 2018新年快乐</h1><p> ThinkPHP V5.1<br/><span style="font-size:30px">12载初心不改（2006-2018） - 你值得信赖的PHP框架</span></p></div><script type="text/javascript" src="https://tajs.qq.com/stats?sId=64890268" charset="UTF-8"></script><script type="text/javascript" src="https://e.topthink.com/Public/static/client.js"></script><think id="eab4b9f840753f8e7"></think>';
 
-
-//    echo request()->param('id');
-
-//    $table = Db::table('tp_users')->count();
-ini_set('max_execution_time',0);
-//    Cache::set('num',0);
-//    $this->getUserTree(1380184467,1);exit;
-
-//$this->getFather('1380184467');exit;
-
-      $data = Db::table('tp_users')
-      ->where('tp138_user_id = "1383504841"')
-      ->field('tp138_user_id,nickname,first_leader')
-      ->find();
-
-      return $data['first_leader'];
-
-
-
-
-    }
-
-    public function getFather($id,$lev=0){
-        $data = Db::table('tp_users')
-      ->where('tp138_user_id',$id)
-      ->field('first_leader')
-      ->find();
-        if(!empty($data)&&$lev<35){
-            $this->getFather($data['first_leader'],$lev+1);
-        }else{
-            dump($id);
-            dump($lev);
-        }
-
-//      return $data['first_leader'];
-    }
-
-
-    public function getUserTree($id,$lev){
-
-        if(is_array($arr = $this->getData($id))){
-            Cache::inc('num',count($arr));
-            foreach($arr as $k => $v){
-                file_put_contents('D:\user.txt',"$v[first_leader] 第 $lev 层会员  $v[tp138_user_id] \n ",8);
-                $this->getUserTree($v['tp138_user_id'],$lev+1);
-
-            }
-
-
-
-        }
-        echo $lev;
-
-
-
-
-
-    }
-
-    public function getData($id){
-
-        $data = Db::table('tp_users')
-        ->where('first_leader', "$id")
-        ->field('tp138_user_id,nickname,first_leader')
-        ->select();
-
-        return $data;
-    }
 
 
 

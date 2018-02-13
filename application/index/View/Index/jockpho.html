@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <!-- HTML5头文件 -->
-<include file="public/head"/>
+{include file="public/head"/}
 <!-- HTML5头文件 -->
-<link href="__PUBLIC__/Home/css/photostyle.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="__PUBLIC__/Home/css/lightbox.css" type="text/css" media="screen" />
+<link href="static/css/photostyle.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="static/css/lightbox.css" type="text/css" media="screen" />
 <script type="text/javascript">
   $(document).ready(function(){ 
     $(".zoom,.ilike").hide();
@@ -24,7 +24,7 @@
 </script>
 <body>
 <!-- Begin Header -->
-<include file="public/header"/>
+{include file="public/header"/}
 <!-- End Header -->
 
 <!-- Begin Wrapper -->
@@ -39,7 +39,7 @@
 
     <div id="main">
       <ul id="waterfall">   
-          <foreach name="res" item="pho">  
+          {foreach name="res" item="pho"} 
             <li>
               <div class="img_block">
                   <img src="{$pho['image0']}" />
@@ -50,10 +50,10 @@
                 <div class="iNum"><span>1</span><a href="javascript:;">4</a></div>
                 <p>{$pho['create_time']}</p>                
           </li>
-          </foreach> 
+          {/foreach} 
         </ul>
       <div class="clear"></div>
-      <div style="visibility:hidden" id=loading class=loading><p><img src=""><IMG src="__PUBLIC__/Home/images/load.gif"></p></div>
+      <div style="visibility:hidden" id=loading class=loading><p><img src=""><IMG src="static/images/load.gif"></p></div>
     </div>
     <div class="clear"></div>
     <div class="post-nav">
@@ -69,9 +69,9 @@
 <!-- End Wrapper -->
 
 <!-- Begin Footer -->
-<include file="public/footer"/>
+{include file="public/footer"/}
 <!-- End Footer --> 
-<script src="__PUBLIC__/Home/js/lightbox.js"></script>
+<script src="static/js/lightbox.js"></script>
 <script>
 $(function(){    
   var $waterfall = $('#waterfall');    

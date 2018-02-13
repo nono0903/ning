@@ -134,7 +134,7 @@ function thumb_images($id, $width, $height,$url='')
         $thumb_name = $thumb_name . '.' . $image->type();
         // 生成缩略图
         !is_dir($path) && mkdir($path, 0777, true);
-        $image->thumb($width, $height, 2)->save($path . $thumb_name, NULL, 100); //按照原图的比例生成一个最大为$width*$height的缩略图并保存
+        $image->thumb($width, $height, 3)->save($path . $thumb_name, NULL, 100); //按照原图的比例生成一个最大为$width*$height的缩略图并保存
         //图片水印处理
         $water = Cache::get('water');
         if ($water['is_mark'] == 1) {

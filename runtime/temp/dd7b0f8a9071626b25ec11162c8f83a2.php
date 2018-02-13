@@ -1,4 +1,4 @@
-<?php /*a:4:{s:66:"D:\phpStudy\WWW\tp5\application/index/view\index\tech_article.html";i:1518078029;s:59:"D:\phpStudy\WWW\tp5\application/index/view\public\head.html";i:1518078028;s:61:"D:\phpStudy\WWW\tp5\application/index/view\public\header.html";i:1518078028;s:61:"D:\phpStudy\WWW\tp5\application/index/view\public\footer.html";i:1518078028;}*/ ?>
+<?php /*a:4:{s:66:"D:\phpStudy\WWW\tp5\application/index/view\index\tech_article.html";i:1518506385;s:59:"D:\phpStudy\WWW\tp5\application/index/view\public\head.html";i:1518078028;s:61:"D:\phpStudy\WWW\tp5\application/index/view\public\header.html";i:1518492763;s:61:"D:\phpStudy\WWW\tp5\application/index/view\public\footer.html";i:1518500963;}*/ ?>
 <!DOCTYPE HTML>
 <html lang="en">
 <!-- HTML5头文件 -->
@@ -55,31 +55,31 @@
 				<ul id="tiny">
 					<li class="active"><a href="/">首页</a></li>
                     <?php if(is_array($navigate) || $navigate instanceof \think\Collection || $navigate instanceof \think\Paginator): if( count($navigate)==0 ) : echo "" ;else: foreach($navigate as $key=>$vo): ?>
-					<li><a href="<?php echo url('/artlist',['id'=>$vo['category_id'],type=>$vo['type']]); ?>"><?php echo htmlentities($vo['category_name']); ?></a>
+					<li><a href="<?php echo url('/artlist',['id'=>$vo['category_id'],'type'=>$vo['type']]); ?>"><?php echo htmlentities($vo['category_name']); ?></a>
                         <ul>
                         <?php if(is_array($vo['sons']) || $vo['sons'] instanceof \think\Collection || $vo['sons'] instanceof \think\Paginator): if( count($vo['sons'])==0 ) : echo "" ;else: foreach($vo['sons'] as $key=>$v): ?>
 
-                                <li><a href="<?php echo url('/artlist',['id'=>$v['category_id'],type=>$v['type']]); ?>"><?php echo htmlentities($v['category_name']); ?></a>
+                                <li><a href="<?php echo url('/artlist',['id'=>$v['category_id'],'type'=>$v['type']]); ?>"><?php echo htmlentities($v['category_name']); ?></a>
 
                         <?php endforeach; endif; else: echo "" ;endif; ?>
                          </ul>
 					</li>					
                     <?php endforeach; endif; else: echo "" ;endif; ?>
 
-					<li><a href="<?php echo url('ct'); ?>">你猜这里是什么</a>
+					<li><a href="<?php echo url('/ct'); ?>">你猜这里是什么</a>
 						<ul>
-							<li><a href="<?php echo url('co'); ?>">故事相册</a></li>
+							<li><a href="<?php echo url('/co'); ?>">故事相册</a></li>
 							<li>
-                                <a href="<?php echo url('viedo'); ?>">百撕不得姐</a>
+                                <a href="<?php echo url('/viedo'); ?>">百撕不得姐</a>
                                 <ul>
-                                    <li><a href="<?php echo url('jock'); ?>">段子</a></li>
-                                    <li><a href="<?php echo url('pict'); ?>">图片</a></li>
-                                    <li><a href="<?php echo url('viedo'); ?>">视频</a></li>
+                                    <li><a href="<?php echo url('/jock'); ?>">段子</a></li>
+                                    <li><a href="<?php echo url('/pict'); ?>">图片</a></li>
+                                    <li><a href="<?php echo url('/viedo'); ?>">视频</a></li>
                                 </ul>
                               </li>
 						</ul>
 					</li>
-					<li><a href="<?php echo url('contact'); ?>">联系方式</a></li>
+					<li><a href="<?php echo url('/contact'); ?>">联系方式</a></li>
 				</ul>
 			</div>
 		</div>
@@ -99,38 +99,25 @@
 	
 		<h6 class="title">技术探讨></h6>
 		<div class="details">
-			<h1 class="title"style="text-align: center;"><?php echo htmlentities($techart['title']); ?></h1>
-			<span class="icon-standard"><a href="#"><?php echo htmlentities(date("Y/m/d H:i",!is_numeric($techart['pubtime'])? strtotime($techart['pubtime']) : $techart['pubtime'])); ?></a></span>
-			<span class="likes"><a href="javascript:void(0)" id = "t<?php echo htmlentities($techart['blog_id']); ?>" onclick = "tlike(<?php echo htmlentities($techart['blog_id']); ?>)" ><?php echo htmlentities($techart['likes']); ?><span class="addone"></span></a></span>
-			<span class="comments"><a href="#respond"><?php echo htmlentities($techart['click_count']); ?></a></span>
+			<h1 class="title"style="text-align: center;"><?php echo htmlentities($art['title']); ?></h1>
+			<span class="icon-standard"><a href="#"><?php echo htmlentities(date("Y/m/d H:i",!is_numeric($art['pubtime'])? strtotime($art['pubtime']) : $art['pubtime'])); ?></a></span>
+			<span class="likes"><a href="javascript:void(0)" id = "t<?php echo htmlentities($art['blog_id']); ?>" onclick = "tlike(<?php echo htmlentities($art['blog_id']); ?>)" ><?php echo htmlentities($art['likes']); ?><span class="addone"></span></a></span>
+			<span class="comments"><a href="#respond"><?php echo htmlentities($art['click_count']); ?></a></span>
 		</div>
-			<?php echo htmlspecialchars_decode($techart['article']); ?>
+			<?php echo htmlspecialchars_decode($art['article']); ?>
 		
 			
 			<div class="tags">
 			标签:
-			<?php if(is_array($techart['tag']) || $techart['tag'] instanceof \think\Collection || $techart['tag'] instanceof \think\Paginator): if( count($techart['tag'])==0 ) : echo "" ;else: foreach($techart['tag'] as $key=>$tags): ?>
-			<a href="#"><?php echo htmlentities($tags['tag_id']); ?></a>&nbsp;
+			<?php if(is_array($art['tag']) || $art['tag'] instanceof \think\Collection || $art['tag'] instanceof \think\Paginator): if( count($art['tag'])==0 ) : echo "" ;else: foreach($art['tag'] as $key=>$tags): ?>
+			<a href="<?php echo Url('/artlist',['tag_id'=>$tags['tag_id'],type=>$art['type']]); ?>"><?php echo cache($tags['tag_id']); ?></a>&nbsp;
 			<?php endforeach; endif; else: echo "" ;endif; ?>
+
 			</div>	
-			<div class="ds-share flat" data-thread-key="tech<?php echo htmlentities($techart['blog_id']); ?>" data-title="<?php echo htmlentities($techart['title']); ?>" data-images="" data-content='<?php echo htmlentities($techart["article"]); ?>' data-url="http://91ning.com<?php echo Url('fullwith?id='.$techart['blog_id']); ?>">
-    <div class="ds-share-inline">
-      <ul  class="ds-share-icons-16">      	
-      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
-        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
-        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-      	
-      </ul>
-      <div class="ds-share-icons-more">
-      </div>
-    </div>
  </div>
 			
-			<div class="post-nav">
-				<span class="nav-prev"><a href="<?php echo Url('fullwith?id='.($techart['blog_id']-1)); ?>"id="pre">&larr; 上一篇</a></span>
-				<span class="nav-next"><a href="<?php echo Url('fullwith?id='.($techart['blog_id']+1)); ?>" id='next'>下一篇 &rarr;</a></span>
+			<div class="post-nav" id="flip">
+				
 				<div class="clear"></div>
 			</div>
 		</div>
@@ -142,17 +129,7 @@
 		  
 		  <!-- Begin Comments --> 
 		  <div id="comments">           
-		<!-- End Comments -->
-		<div id="comment-form" class="comment-form">
-			<div id="respond">
-				<h3 id="reply-title">发表评论:</h3>
-				<!-- 多说评论框 start -->
-			<div class="ds-thread" data-thread-key="tech<?php echo htmlentities($techart['blog_id']); ?>" data-title="<?php echo htmlentities($techart['title']); ?>" data-url="http://91ning.com<?php echo Url('fullwith?id='.$techart['blog_id']); ?>"></div>
-				<!-- 多说评论框 end -->
-
-			</div><!-- #respond -->		  	
-		</div>
-		<!-- End Form -->	
+		
 		
 		
 		</div>	
@@ -235,20 +212,6 @@
 	<span>&copy; Ning|寜&nbsp;&nbsp; Design by <a href="91ning.com">Ning</a>&nbsp;&nbsp;基于ThinkPHP制作&nbsp;&nbsp;QQ:976383555&nbsp;&nbsp;Email:nono0903@gmail.com</div></span>
 </div>
 
-<!--&lt;!&ndash; 多说公共JS代码 start (一个网页只需插入一次) &ndash;&gt;-->
-<!--<script type="text/javascript">-->
-<!--var duoshuoQuery = {short_name:"nono0903"};-->
-	<!--(function() {-->
-		<!--var ds = document.createElement('script');-->
-		<!--ds.type = 'text/javascript';ds.async = true;-->
-		<!--ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';-->
-		<!--ds.charset = 'UTF-8';-->
-		<!--(document.getElementsByTagName('head')[0] -->
-		 <!--|| document.getElementsByTagName('body')[0]).appendChild(ds);-->
-	<!--})();-->
-<!--</script>-->
-<!--&lt;!&ndash; 多说公共JS代码 end &ndash;&gt;-->
-<!-- 添加喜欢js公共代码 start-->
 	<script>
 		
 		function blikes(id){
@@ -281,7 +244,18 @@
 <!-- End Footer --> 
 
 <script>
-	$('title').html('<?php echo htmlentities($techart['title']); ?>');
+	$('title').html("<?php echo htmlentities($art['title']); ?>");
+	$(function(){
+		$.ajax({
+				type:'POST',
+				data:{'id':<?php echo htmlentities($art['blog_id']); ?>,'type':<?php echo htmlentities($art['type']); ?>},
+				dataType:'json',
+				url:"/getPage",
+				success:function(data){
+				   $('#flip').empty().html(data);
+				}
+		});		
+	})
 </script>
 
 </body>
